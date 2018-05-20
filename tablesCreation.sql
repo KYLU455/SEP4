@@ -1,4 +1,7 @@
-
+drop table  flight;
+drop table  weather;
+drop sequence idFlightSequence;
+drop sequence idWeatherSequence;
 
 CREATE TABLE flight  (
 ID number NOT NULL CONSTRAINT flight_id PRIMARY KEY,
@@ -8,6 +11,10 @@ satellite_coverage VARCHAR(1) NOT NULL,
 position_longitude VARCHAR(20) NOT NULL,
 position_latitude VARCHAR(20) NOT NULL,
 log_time date NOT NULL);
+
+create SEQUENCE idFlightSequence START WITH 1
+INCREMENT BY 1
+NOMAXVALUE;
 
 CREATE TABLE weather(
 id number NOT NULL CONSTRAINT weather_id PRIMARY KEY,
@@ -21,4 +28,7 @@ wind_direction_speed VARCHAR(20) NOT NULL,
 date_time date,
 issuing_airport VARCHAR(20) NOT NULL);
 
+create SEQUENCE idWeatherSequence START WITH 1
+INCREMENT BY 1
+NOMAXVALUE;
 
