@@ -31,4 +31,3 @@ issuing_airport VARCHAR(20) NOT NULL);
 create SEQUENCE idWeatherSequence START WITH 1
 INCREMENT BY 1
 NOMAXVALUE;
-
