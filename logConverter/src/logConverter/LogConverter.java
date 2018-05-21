@@ -5,6 +5,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.GregorianCalendar;
 
@@ -46,6 +50,10 @@ public class LogConverter {
 				}
 			}
 		}
+		bufferedReader.close();
+        Path moveto = FileSystems.getDefault().getPath("logs_archive/" + file.getName());
+        Path movefrom = FileSystems.getDefault().getPath(file.getPath());
+        Files.move(movefrom, moveto, StandardCopyOption.ATOMIC_MOVE);
 	}
 	
 
