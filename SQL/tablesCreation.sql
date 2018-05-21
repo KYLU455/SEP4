@@ -11,7 +11,7 @@ pressure_altitude number NOT NULL,
 satellite_coverage VARCHAR(1) NOT NULL,
 position_longitude VARCHAR(20) NOT NULL,
 position_latitude VARCHAR(20) NOT NULL,
-log_time date NOT NULL);
+log_time varchar(8) NOT NULL);
 
 create SEQUENCE idFlightSequence START WITH 1
 INCREMENT BY 1

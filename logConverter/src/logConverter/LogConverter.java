@@ -30,14 +30,14 @@ public class LogConverter {
 		while((line = bufferedReader.readLine()) != null) {
 			if(line.charAt(0) == 'B') {
 				Log log = new Log(
-						Double.parseDouble(line.substring(30, 34)),
-						Double.parseDouble(line.substring(25, 29)),
+						Double.parseDouble(line.substring(30, 35)),
+						Double.parseDouble(line.substring(25, 30)),
 						line.charAt(24),
-						line.substring(15, 23),
-						line.substring(7, 14),
-						line.substring(1, 2),
-						line.substring(3, 4),
-						line.substring(5, 6));
+						line.substring(15, 24),
+						line.substring(7, 15),
+						line.substring(1, 3),
+						line.substring(3, 5),
+						line.substring(5, 7));
 				try {
 					db.insertLog(log, file.getName().substring(0, file.getName().length() - 4));
 				} catch (SQLException e) {

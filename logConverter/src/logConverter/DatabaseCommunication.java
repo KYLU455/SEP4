@@ -10,6 +10,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 
 public class DatabaseCommunication {
@@ -48,9 +49,8 @@ public class DatabaseCommunication {
 		statement.setString(3, Character.toString(log.getSateliteCoverage()));
 		statement.setString(4, log.getPositionLongitude());
 		statement.setString(5, log.getPositionLatitude());
-		statement.setTime(6, new Time(Integer.parseInt(log.getHH()), 
-				Integer.parseInt(log.getMM()), 
-				Integer.parseInt(log.getSS())));
+		GregorianCalendar calendar = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
+		statement.setString(6, log.getHH()+":"+log.getMM()+":"+log.getSS());
 		statement.setString(7, fileName);
 		statement.executeQuery();
 		statement.close();
