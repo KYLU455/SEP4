@@ -5,6 +5,7 @@ drop sequence idWeatherSequence;
 
 CREATE TABLE flight  (
 ID number NOT NULL CONSTRAINT flight_id PRIMARY KEY,
+flight_id varchar(10) not null,
 gps_altitude number NOT NULL,
 pressure_altitude number NOT NULL,
 satellite_coverage VARCHAR(1) NOT NULL,

@@ -39,10 +39,10 @@ public class DatabaseCommunication {
 		return instance;
 	}
 	
-	public void insertLog(Log log) throws SQLException {
+	public void insertLog(Log log, String fileName) throws SQLException {
 		PreparedStatement statement = conn.prepareStatement("insert into flight "
-				+ "(ID, gps_altitude, pressure_altitude, satellite_coverage, position_longitude, position_latitude, log_time)"
-				+ " values (idFlightSequence.nextval,?,?,?,?,?,?)");
+				+ "(ID, gps_altitude, pressure_altitude, satellite_coverage, position_longitude, position_latitude, log_time, flight_id)"
+				+ " values (idFlightSequence.nextval,?,?,?,?,?,?,?)");
 		statement.setDouble(1, log.getGpsAltitude());
 		statement.setDouble(2, log.getPressureAltitude());
 		statement.setString(3, Character.toString(log.getSateliteCoverage()));
@@ -51,6 +51,7 @@ public class DatabaseCommunication {
 		statement.setTime(6, new Time(Integer.parseInt(log.getHH()), 
 				Integer.parseInt(log.getMM()), 
 				Integer.parseInt(log.getSS())));
+		statement.setString(7, fileName);
 		statement.executeQuery();
 		statement.close();
 		conn.commit();

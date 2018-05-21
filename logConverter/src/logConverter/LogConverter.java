@@ -30,8 +30,8 @@ public class LogConverter {
 		while((line = bufferedReader.readLine()) != null) {
 			if(line.charAt(0) == 'B') {
 				Log log = new Log(
-						Double.parseDouble(line.substring(31, 35)), // gps alt
-						Double.parseDouble(line.substring(25, 30)), // pressure alt
+						Double.parseDouble(line.substring(30, 34)),
+						Double.parseDouble(line.substring(25, 29)),
 						line.charAt(24),
 						line.substring(15, 23),
 						line.substring(7, 14),
@@ -39,7 +39,7 @@ public class LogConverter {
 						line.substring(3, 4),
 						line.substring(5, 6));
 				try {
-					db.insertLog(log);
+					db.insertLog(log, file.getName().substring(0, file.getName().length() - 4));
 				} catch (SQLException e) {
 					System.out.println(line);
 					e.printStackTrace();
