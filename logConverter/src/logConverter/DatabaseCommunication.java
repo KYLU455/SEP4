@@ -49,7 +49,6 @@ public class DatabaseCommunication {
 		statement.setString(3, Character.toString(log.getSateliteCoverage()));
 		statement.setString(4, log.getPositionLongitude());
 		statement.setString(5, log.getPositionLatitude());
-		GregorianCalendar calendar = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
 		statement.setString(6, log.getHH()+":"+log.getMM()+":"+log.getSS());
 		statement.setString(7, fileName);
 		statement.executeQuery();
