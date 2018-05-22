@@ -16,6 +16,9 @@ public class LogConverter {
 
 	private File[] files;
 	private DatabaseCommunication db;
+	private int day;
+	private int month;
+	private int year;
 	
 	public LogConverter() throws IOException {
 		File forder = new File("logs");
@@ -39,15 +42,20 @@ public class LogConverter {
 						line.charAt(24),
 						line.substring(15, 24),
 						line.substring(7, 15),
-						line.substring(1, 3),
-						line.substring(3, 5),
-						line.substring(5, 7));
+						Integer.parseInt(line.substring(1, 3)),
+						Integer.parseInt(line.substring(3, 5)),
+						Integer.parseInt(line.substring(5, 7)));
 				try {
-					db.insertLog(log, file.getName().substring(0, file.getName().length() - 4));
+					db.insertLog(log, file.getName().substring(0, file.getName().length() - 4), day, month, year);
 				} catch (SQLException e) {
 					System.out.println(line);
 					e.printStackTrace();
 				}
+			}
+			else if (line.substring(0, 5).equals("HFDTE")) {
+				day = Integer.parseInt(line.substring(5, 7));
+				month = Integer.parseInt(line.substring(7, 9));
+				year = Integer.parseInt(line.substring(9, 11));
 			}
 		}
 		bufferedReader.close();

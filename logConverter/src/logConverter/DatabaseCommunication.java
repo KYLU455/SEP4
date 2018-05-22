@@ -1,11 +1,14 @@
 package logConverter;
 
+import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
@@ -37,18 +40,19 @@ public class DatabaseCommunication {
 		return instance;
 	}
 	
-	public void insertLog(Log log, String fileName) throws SQLException {
-		PreparedStatement statement = conn.prepareStatement("insert into flight "
+	public void insertLog(Log log, String fileName, int day, int month, int year) throws SQLException {
+		Statement statement = conn.createStatement();
+		statement.executeQuery("insert into flight "
 				+ "(ID, gps_altitude, pressure_altitude, satellite_coverage, position_longitude, position_latitude, log_time, flight_id)"
-				+ " values (idFlightSequence.nextval,?,?,?,?,?,?,?)");
-		statement.setDouble(1, log.getGpsAltitude());
-		statement.setDouble(2, log.getPressureAltitude());
-		statement.setString(3, Character.toString(log.getSateliteCoverage()));
-		statement.setString(4, log.getPositionLongitude());
-		statement.setString(5, log.getPositionLatitude());
-		statement.setString(6, log.getHH()+":"+log.getMM()+":"+log.getSS());
-		statement.setString(7, fileName);
-		statement.executeQuery();
+				+ " values (idFlightSequence.nextval"
+				+ "," + log.getGpsAltitude()
+				+ "," + log.getPressureAltitude()
+				+ ",'" + log.getSateliteCoverage() + "'"
+				+ ",'" + log.getPositionLongitude() + "'"
+				+ ",'" + log.getPositionLatitude() + "'"
+				+ ", timestamp '" + (year + 2000) + "-" + month + "-" + day + " " + log.getHH() + ":" + log.getMM() + ":" + log.getSS() + "UTC'"
+				+ ",'" + fileName + "'"
+				+ ")");
 		statement.close();
 		conn.commit();
 		}

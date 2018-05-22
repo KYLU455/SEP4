@@ -9,12 +9,12 @@ public class Log {
 	private char sateliteCoverage;
 	private String positionLongitude;
 	private String positionLatitude;
-	private String HH;
-	private String MM;
-	private String SS;
-
+	private int HH;
+	private int MM;
+	private int SS;
+	
 	public Log(double gpsAltitude, double pressureAltitude, char sateliteCoverage, String positionLongitude,
-			String positionLatitude, String hH, String mM, String sS) {
+			String positionLatitude, int hH, int mM, int sS) {
 		this.gpsAltitude = gpsAltitude;
 		this.pressureAltitude = pressureAltitude;
 		this.sateliteCoverage = sateliteCoverage;
@@ -45,15 +45,15 @@ public class Log {
 		return positionLatitude;
 	}
 
-	public String getHH() {
+	public int getHH() {
 		return HH;
 	}
 
-	public String getMM() {
+	public int getMM() {
 		return MM;
 	}
 
-	public String getSS() {
+	public int getSS() {
 		return SS;
 	}
 

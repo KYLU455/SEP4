@@ -5,13 +5,13 @@ drop sequence idWeatherSequence;
 
 CREATE TABLE flight  (
 ID number NOT NULL CONSTRAINT flight_id PRIMARY KEY,
-flight_id varchar(10) not null,
+flight_id varchar(15) not null,
 gps_altitude number NOT NULL,
 pressure_altitude number NOT NULL,
 satellite_coverage VARCHAR(1) NOT NULL,
 position_longitude VARCHAR(20) NOT NULL,
 position_latitude VARCHAR(20) NOT NULL,
-log_time varchar(8) NOT NULL);
+log_time TIMESTAMP WITH TIME zone NOT NULL);
 
 create SEQUENCE idFlightSequence START WITH 1
 INCREMENT BY 1
@@ -32,3 +32,5 @@ issuing_airport VARCHAR(20) NOT NULL);
 create SEQUENCE idWeatherSequence START WITH 1
 INCREMENT BY 1
 NOMAXVALUE;
+
+
