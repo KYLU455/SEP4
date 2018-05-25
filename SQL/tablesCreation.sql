@@ -25,7 +25,6 @@ surface_temperature number NOT NULL,
 cloud_cover VARCHAR(20) NOT NULL,
 visibility VARCHAR(20) NOT NULL,
 wind_direction_speed VARCHAR(20) NOT NULL,
---THE DATE DOESNT HAVE A MONTH IN THE FILE
 date_time date,
 issuing_airport VARCHAR(20) NOT NULL);
 
