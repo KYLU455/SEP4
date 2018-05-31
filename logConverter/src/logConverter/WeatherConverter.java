@@ -18,7 +18,6 @@ public class WeatherConverter {
 
       private File[] files;
       private DatabaseCommunication db;
-      private int day;
       
       public WeatherConverter() throws IOException {
          File forder = new File("weather_logs");
@@ -34,10 +33,11 @@ public class WeatherConverter {
          FileReader fileReader = new FileReader(file);
          BufferedReader bufferedReader = new BufferedReader(fileReader);
          String line;
+         Weather weather = null;
          
          while((line = bufferedReader.readLine()) != null) {
             if(line.charAt(0) == 'M' || line.length() < 56){
-               Weather weather = new Weather(
+               weather = new Weather(
                      line.substring(6, 10),
                      Integer.parseInt(line.substring(11, 13)),
                      Integer.parseInt(line.substring(13, 15)),
@@ -51,7 +51,7 @@ public class WeatherConverter {
                      Double.parseDouble(line.substring(51, 55)));
             }
             else if(line.charAt(0) == 'M' || line.length() > 56){
-               Weather weather = new Weather(
+               weather = new Weather(
                      line.substring(6, 10),
                      Integer.parseInt(line.substring(11, 13)),
                      Integer.parseInt(line.substring(13, 15)),
@@ -63,14 +63,16 @@ public class WeatherConverter {
                      Double.parseDouble(line.substring(47, 49)),
                      Double.parseDouble(line.substring(50, 52)),
                      Double.parseDouble(line.substring(55, 58)));
-            }
                
+            }
             try {
-               db.insertLog(weather, file.getName().substring(0, file.getName().length() - 4), day);
+               db.insertWeather(weather, file.getName().substring(0, file.getName().length()));
             } catch (SQLException e) {
                System.out.println(line);
                e.printStackTrace();
             }
+               
+           
          }
          
       }

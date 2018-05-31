@@ -57,19 +57,19 @@ public class DatabaseCommunication {
 		conn.commit();
 		}
 	
-	public void insertWeather(Weather weather, String fileName, int day) throws SQLException {
+	public void insertWeather(Weather weather, String fileName) throws SQLException {
       Statement statement = conn.createStatement();
       statement.executeQuery("insert into weather"
             + "(pressure; dewPointTemperature; surfaceTemperature; cloudCover; visibility; windDirection; windSpeed; DD; HH; MM; airport)"
             + " values (idWeatherSequence.nextval"
-            + "," + weather.getPressure()
-            + "," + weather.getVisibility()
-            + ",'" + weather.getWindSpeed() + "'"
-            + ",'" + weather.getWindDirection() + "'"
-            + ",'" + weather.getCloudCover() + "'"
             + "," + weather.getAirport() + "'"
+            + ", timestamp '" + " " + weather.getDD() + ":" + weather.getHH() + ":" + weather.getMM() + "UTC'"
+            + ",'" + weather.getWindDirection() + "'"
+            + ",'" + weather.getWindSpeed() + "'"
+            + "," + weather.getVisibility()
+            + ",'" + weather.getCloudCover() + "'"
             + "," + weather.getSurfaceTemperature() 
-            + ", timestamp '" + day + " " + weather.getDD() + ":" + weather.getHH() + ":" + weather.getMM() + "UTC'"
+            + "," + weather.getPressure()
             + ",'" + fileName + "'"
             + ")");
       statement.close();
