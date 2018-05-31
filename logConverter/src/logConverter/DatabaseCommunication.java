@@ -16,7 +16,7 @@ import java.util.TimeZone;
 public class DatabaseCommunication {
 
 	private static DatabaseCommunication instance;
-	private final static String connectString = "jdbc:oracle:thin:@localhost:1521:orabbc12c";
+	private final static String connectString = "jdbc:oracle:thin:@localhost:1521:xe"; //orabbc12c
 	private final static String userName = "sep";
 	private final static String password = "sep";
 	private static Connection conn;

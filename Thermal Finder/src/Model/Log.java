@@ -1,5 +1,6 @@
 package Model;
 
+import java.sql.Date;
 import java.util.GregorianCalendar;
 
 public class Log {
@@ -7,8 +8,9 @@ public class Log {
 	private double latitude;
 	private double longitude;
 	private double altitude;
+	private Date date;
 
-	public Log(String latitude, String longitude, double altitude) {
+	public Log(String latitude, String longitude, double altitude, Date date) {
 		int m = 1;
 		if(latitude.charAt(latitude.length() - 1) == 'W') {
 			m = -1;
@@ -32,5 +34,9 @@ public class Log {
 
 	public double getAltitude() {
 		return altitude;
+	}
+	
+	public Date getDate() {
+		return date;
 	}
 }

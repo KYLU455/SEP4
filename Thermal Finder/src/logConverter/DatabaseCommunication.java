@@ -52,15 +52,15 @@ public class DatabaseCommunication {
 		ResultSet resultSet = statement.executeQuery();
 		while (resultSet.next()) {
 			flights.add(new Flight(resultSet.getString(1)));
-			PreparedStatement stm = conn.prepareStatement("select POSITION_LATITUDE, POSITION_LONGITUDE, GPS_ALTITUDE from FLIGHT where FLIGHT_ID = ? order by LOG_TIME asc");
+			PreparedStatement stm = conn.prepareStatement("select POSITION_LATITUDE, POSITION_LONGITUDE, GPS_ALTITUDE, LOG_TIME from FLIGHT where FLIGHT_ID = ? order by LOG_TIME asc");
 			stm.setString(1, resultSet.getString(1));
 			ResultSet set = stm.executeQuery();
 			while(set.next()) {
-				flights.get(flights.size() - 1).getLogs().add(new Log(set.getString(1), set.getString(2), set.getInt(3)));
+				flights.get(flights.size() - 1).getLogs().add(new Log(set.getString(1), set.getString(2), set.getInt(3), set.getDate(4)));
 			}
 			stm.close();
 		}
 		statement.close();
-		return null;
+		return flights;
 	}
 }
