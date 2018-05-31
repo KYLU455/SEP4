@@ -54,23 +54,24 @@ public class DatabaseCommunication {
 				+ ",'" + fileName + "'"
 				+ ")");
 		statement.close();
+		statement = null;
 		conn.commit();
 		}
 	
 	public void insertWeather(Weather weather, String fileName) throws SQLException {
       Statement statement = conn.createStatement();
-      statement.executeQuery("insert into weather"
-            + "( airport; DD; HH; MM; windDirection; windSpeed; visibility; cloudCover; surfaceTemperature; dewPointTemperature; pressure;)"
+      statement.executeQuery("insert into weather "
+            + "(ID, PRESSURE, DEW_POINT_TEMPERATURE, SURFACE_TEMPERATURE, CLOUD_COVER, VISIBILITY, DATE_TIME, ISSUING_AIRPORT, WIND_SPEED, WIND_DIRECTION)"
             + " values (idWeatherSequence.nextval"
-            + "," + weather.getAirport() + "'"
-            + ", timestamp '" + " " + weather.getDD() + ":" + weather.getHH() + ":" + weather.getMM() + "UTC'"
-            + ",'" + weather.getWindDirection() + "'"
-            + ",'" + weather.getWindSpeed() + "'"
-            + "," + weather.getVisibility()
-            + ",'" + weather.getCloudCover() + "'"
-            + "," + weather.getSurfaceTemperature() 
-            + "," + weather.getDewPointTemperature() 
             + "," + weather.getPressure()
+            + "," + weather.getDewPointTemperature()
+            + ",'" + weather.getSurfaceTemperature() + "'"
+            + ",'" + weather.getCloudCover() + "'"
+            + "," + weather.getVisibility() + "'"
+            + ", timestamp '" + " " + weather.getDD() + ":" + weather.getHH() + ":" + weather.getMM() + "UTC'"
+            + "," + weather.getAirport() + "'" 
+            + "," + weather.getWindSpeed() + "'"  
+            + "," + weather.getWindDirection() 
             + ",'" + fileName + "'"
             + ")");
       statement.close();

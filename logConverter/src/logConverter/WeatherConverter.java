@@ -20,8 +20,8 @@ public class WeatherConverter {
       private DatabaseCommunication db;
       
       public WeatherConverter() throws IOException {
-         File forder = new File("weather_logs");
-         files = forder.listFiles();
+         File folder = new File("weather_logs");
+         files = folder.listFiles();
          db = DatabaseCommunication.getInstance();
          for (int a = 0; a < files.length; a++) {
             System.out.println(files[a].getName());
