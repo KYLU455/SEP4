@@ -48,8 +48,8 @@ public class DatabaseCommunication {
 				+ "," + log.getGpsAltitude()
 				+ "," + log.getPressureAltitude()
 				+ ",'" + log.getSateliteCoverage() + "'"
-				+ ",'" + log.getPositionLongitude() + "'"
 				+ ",'" + log.getPositionLatitude() + "'"
+				+ ",'" + log.getPositionLongitude() + "'"
 				+ ", timestamp '" + (year + 2000) + "-" + month + "-" + day + " " + log.getHH() + ":" + log.getMM() + ":" + log.getSS() + "UTC'"
 				+ ",'" + fileName + "'"
 				+ ")");

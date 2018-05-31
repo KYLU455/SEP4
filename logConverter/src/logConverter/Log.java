@@ -13,12 +13,12 @@ public class Log {
 	private int MM;
 	private int SS;
 	
-	public Log(double gpsAltitude, double pressureAltitude, char sateliteCoverage, String positionLongitude,
-			String positionLatitude, int hH, int mM, int sS) {
+	public Log(double gpsAltitude, double pressureAltitude, char sateliteCoverage, 
+			String positionLatitude, String positionLongitude, int hH, int mM, int sS) {
 		this.gpsAltitude = gpsAltitude;
 		this.pressureAltitude = pressureAltitude;
 		this.sateliteCoverage = sateliteCoverage;
-		this.positionLongitude = positionLongitude;
+	    this.positionLongitude = positionLongitude;
 		this.positionLatitude = positionLatitude;
 		HH = hH;
 		MM = mM;
