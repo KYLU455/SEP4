@@ -34,47 +34,46 @@ public class WeatherConverter {
          FileReader fileReader = new FileReader(file);
          BufferedReader bufferedReader = new BufferedReader(fileReader);
          String line;
+         
          while((line = bufferedReader.readLine()) != null) {
-            if(line.charAt(0) == 'M'){
+            if(line.charAt(0) == 'M' || line.length() < 56){
                Weather weather = new Weather(
-                     Double.parseDouble(line.substring(55, 59)),
-                     Double.parseDouble(line.substring(61, 63)),
-                     Double.parseDouble(line.substring(58, 60)),
-                     line.substring(40, 47),
-                     line.substring(32,39),
-                     Double.parseDouble(line.substring(27, 29)),
-                     Double.parseDouble(line.substring(24, 27)),
+                     line.substring(6, 10),
                      Integer.parseInt(line.substring(11, 13)),
                      Integer.parseInt(line.substring(13, 15)),
                      Integer.parseInt(line.substring(15, 17)),
-                     line.substring(6, 10));
-              
+                     Double.parseDouble(line.substring(24, 27)),              
+                     Double.parseDouble(line.substring(27, 29)),
+                     line.substring(32,39),
+                     line.substring(40, 43),
+                     Double.parseDouble(line.substring(44, 46)),
+                     Double.parseDouble(line.substring(47, 49)),
+                     Double.parseDouble(line.substring(51, 55)));
             }
-               else if(line.length()>=64){
-                  Weather weather = new Weather(
-                  Double.parseDouble(line.substring(55, 59)),
-                  Double.parseDouble(line.substring(61, 63)),
-                  Double.parseDouble(line.substring(58, 60)),
-                  line.substring(40, 47),
-                  line.substring(32,39),
-                  Double.parseDouble(line.substring(27, 29)),
-                  Double.parseDouble(line.substring(24, 27)),
-                  Integer.parseInt(line.substring(11, 13)),
-                  Integer.parseInt(line.substring(13, 15)),
-                  Integer.parseInt(line.substring(15, 17)),
-                  line.substring(6, 10));
-            
-                  try {
-                     db.insertWeather(weather, file.getName().substring(0, file.getName().length() - 4), day);
-                  } catch (SQLException e) {
-                     System.out.println(line);
-                     e.printStackTrace();
-                  }
-               }
+            else if(line.charAt(0) == 'M' || line.length() > 56){
+               Weather weather = new Weather(
+                     line.substring(6, 10),
+                     Integer.parseInt(line.substring(11, 13)),
+                     Integer.parseInt(line.substring(13, 15)),
+                     Integer.parseInt(line.substring(15, 17)),
+                     Double.parseDouble(line.substring(24, 27)),              
+                     Double.parseDouble(line.substring(27, 29)),
+                     line.substring(32,39),
+                     line.substring(40, 46),
+                     Double.parseDouble(line.substring(47, 49)),
+                     Double.parseDouble(line.substring(50, 52)),
+                     Double.parseDouble(line.substring(55, 58)));
+            }
+               
+            try {
+               db.insertLog(weather, file.getName().substring(0, file.getName().length() - 4), day);
+            } catch (SQLException e) {
+               System.out.println(line);
+               e.printStackTrace();
             }
          }
-
          
+      }
          public static void main(String[] args) throws IOException {
             WeatherConverter converter = new WeatherConverter();
          }

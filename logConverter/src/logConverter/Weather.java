@@ -16,19 +16,19 @@ public class Weather
    private int MM;
    private String airport;
    
-   public Weather(double pressure, double dewPointTemperature, double surfaceTemperature, String cloudCover,
-         String visibility, double windDirection, double windSpeed,int dD, int hH, int mM, String airport) {
-      this.pressure = pressure;
-      this.dewPointTemperature = dewPointTemperature;
-      this.surfaceTemperature = surfaceTemperature;
-      this.cloudCover = cloudCover;
-      this.visibility = visibility;
-      this.windDirection = windDirection;
-      this.windSpeed = windSpeed;
+   public Weather(String airport, int dD, int hH, int mM,double windDirection, double windSpeed, 
+         String visibility, String cloudCover, double surfaceTemperature, double dewPointTemperature, double pressure) {
+      this.airport = airport;
       DD = dD;
       HH = hH;
       MM = mM;
-      this.airport = airport;
+      this.windDirection = windDirection;
+      this.windSpeed = windSpeed;
+      this.visibility = visibility;
+      this.cloudCover = cloudCover;
+      this.surfaceTemperature = surfaceTemperature;
+      this.dewPointTemperature = dewPointTemperature;
+      this.pressure = pressure;  
    }
 
    public double getPressure() {
