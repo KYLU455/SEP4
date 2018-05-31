@@ -16,7 +16,7 @@ import java.util.TimeZone;
 public class DatabaseCommunication {
 
 	private static DatabaseCommunication instance;
-	private final static String connectString = "jdbc:oracle:thin:@localhost:1521:xe";
+	private final static String connectString = "jdbc:oracle:thin:@localhost:1521:orabbc12c";
 	private final static String userName = "sep";
 	private final static String password = "sep";
 	private static Connection conn;
@@ -60,7 +60,7 @@ public class DatabaseCommunication {
 	public void insertWeather(Weather weather, String fileName) throws SQLException {
       Statement statement = conn.createStatement();
       statement.executeQuery("insert into weather"
-            + "(pressure; dewPointTemperature; surfaceTemperature; cloudCover; visibility; windDirection; windSpeed; DD; HH; MM; airport)"
+            + "( airport; DD; HH; MM; windDirection; windSpeed; visibility; cloudCover; surfaceTemperature; dewPointTemperature; pressure;)"
             + " values (idWeatherSequence.nextval"
             + "," + weather.getAirport() + "'"
             + ", timestamp '" + " " + weather.getDD() + ":" + weather.getHH() + ":" + weather.getMM() + "UTC'"
@@ -69,6 +69,7 @@ public class DatabaseCommunication {
             + "," + weather.getVisibility()
             + ",'" + weather.getCloudCover() + "'"
             + "," + weather.getSurfaceTemperature() 
+            + "," + weather.getDewPointTemperature() 
             + "," + weather.getPressure()
             + ",'" + fileName + "'"
             + ")");
