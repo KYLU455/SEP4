@@ -11,17 +11,21 @@ public class Log {
 	private Date date;
 
 	public Log(String latitude, String longitude, double altitude, Date date) {
-		int m = 1;
-		if(latitude.charAt(latitude.length() - 1) == 'W') {
-			m = -1;
-		}
-		this.latitude = Integer.parseInt(latitude.substring(0, latitude.length() - 1)) * m;
-		m = 1;
-		if(longitude.charAt(longitude.length() - 1) == 'S') {
-			m = -1;
-		}
-		this.longitude = Integer.parseInt(longitude.substring(0, longitude.length() - 1)) * m;
+		this.latitude = changeToDecimals(latitude);
+		this.longitude = changeToDecimals(longitude);
 		this.altitude = altitude;
+	}
+	
+	private double changeToDecimals(String t) {
+		double s = 1;
+		if(t.charAt(t.length() - 1) == 'W' || t.charAt(t.length() - 1) == 'S') {
+			s = -1;
+		}
+		double ss = Double.parseDouble(t.substring(t.length() - 4, t.length() - 1)) / 10.0;
+		double mm = Double.parseDouble(t.substring(t.length() - 6, t.length() - 4));
+		double d = Double.parseDouble(t.substring(0, t.length() - 6));
+		double res = d + (mm / 60) + (ss / 3600);
+		return res;
 	}
 
 	public double getLatitude() {
