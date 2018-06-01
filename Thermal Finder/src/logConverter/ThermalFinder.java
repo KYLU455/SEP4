@@ -29,18 +29,18 @@ public class ThermalFinder {
 				increment.add(flight.getLogs().get(a));
 			}
 			else {
-				if (increment.size() > 10 && increment.get(increment.size() - 1).getAltitude() - increment.get(0).getAltitude() > 50) {
+				if (increment.size() > 10 && increment.get(increment.size() - 1).getAltitude() - increment.get(0).getAltitude() >= 100) {
 					System.out.println("found one " + flight.getName());
-//					for (Log log : increment) {
-//						System.out.println(log.getAltitude());
-//					}
-					thermals.add(new Thermal(increment.get(0).getDate(), increment));
+					for (Log log : increment) {
+						System.out.println(log.getAltitude());
+					}
+					thermals.add(new Thermal(increment.get(0).getDate(), (ArrayList<Log>) increment.clone()));
 				}
 				increment = new ArrayList<>();
 			}
 			lastAlt = flight.getLogs().get(a).getAltitude();
 		}
-		
+		System.out.println(thermals.size());
 		return thermals;
 	}
 	
