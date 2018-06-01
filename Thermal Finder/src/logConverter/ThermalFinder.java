@@ -29,7 +29,7 @@ public class ThermalFinder {
 				increment.add(flight.getLogs().get(a));
 			}
 			else {
-				if (increment.size() > 10 && increment.get(increment.size() - 1).getAltitude() - increment.get(0).getAltitude() > 100) {
+				if (increment.size() > 10 && increment.get(increment.size() - 1).getAltitude() - increment.get(0).getAltitude() > 50) {
 					System.out.println("found one " + flight.getName());
 //					for (Log log : increment) {
 //						System.out.println(log.getAltitude());
