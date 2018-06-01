@@ -25,44 +25,52 @@
     )
     PCTFREE 0;
 	
-	
+-- F_WEATHER	
 CREATE SEQUENCE sq_weather START WITH 1 INCREMENT BY 1 NOMAXVALUE;
 
-create table weather(
-id number NOT NULL CONSTRAINT weather_id PRIMARY KEY,
-pressure varchar(20) NOT NULL,
+create table f_weather(
+date_id NUMBER NOT NULL REFERENCES d_date(id), 
 dew_point_temperature number NOT NULL,
 surface_temperature number NOT NULL,
 cloud_cover VARCHAR(20) NOT NULL,
-visibility VARCHAR(20) NOT NULL,
-wind_direction_speed VARCHAR(20) NOT NULL,
-date_time date,
+wind_direction number NOT NULL,
+win_speed_in_knots number NOT NULL,
 issuing_airport VARCHAR(20) NOT NULL
+) pctfree 0;
+
+
+--d_ flight
+CREATE SEQUENCE sq_flight START WITH 1 INCREMENT BY 1 NOMAXVALUE;
+
+--We realized that the flight needed to have a dimension
+--so that it can be connected to more facts about the flight
+CREATE TABLE d_flight(
+id NUMBER NOT NULL CONSTRAINT dFlightPK PRIMARY KEY
+)pctfree 0;
+
+--d_grid
+create table d_grid(
+  id NUMBER NOT NULL CONSTRAINT dGridPK PRIMARY KEY ,
+  start_latitude NUMBER NOT NULL,
+  end_latitude NUMBER NOT NULL,
+  start_longitude NUMBER NOT NULL,
+  end_longitude NUMBER NOT NULL
 ) pctfree 0;
 
 CREATE SEQUENCE sq_thermal START WITH 1 INCREMENT BY 1 NOMAXVALUE;
 
-create table d_thermal(
-  id int not null constraint co_pk_thermalid primary key,
-  date_found date not null,
-  rectangle_side_A number not null,
-  rectangle_side_C number not null,
-  valid_until date not null
-) pctfree 0;
-
-create table location(
-  position_longitude VARCHAR(20) NOT NULL,
-  position_latitude VARCHAR(20) NOT NULL,
-  zip_code int not null,
-  city_name varchar(20) not null,
-  thermal_id int not null constraint co_fk_thermal_location references d_thermal
+create table f_thermal(
+  date_found_id NUMBER NOT NULL REFERENCES d_date(id),
+  flight_id NUMBER NOT NULL REFERENCES d_flight(id),
+  grid_id NUMBER NOT NULL REFERENCES d_grid(id),
+  valid_to date not null
 ) pctfree 0;
 
 
 
 
   
-
+--------REST OF THE DDL (THE SAME AS THE DWH COURSE PROJECT)------------
   
   -- member
   
@@ -197,11 +205,12 @@ CREATE SEQUENCE sq_bridge_mf START WITH 1 INCREMENT BY 1 NOMAXVALUE CACHE 20 ;
  DROP TABLE f_flight;
   CREATE TABLE f_flight
     (
+		flight_id NUMBER NOT NULL REFERENCES d_flight(id), --references the d_flight that only has the id
       launch_time_id   NUMBER NOT NULL REFERENCES d_date (id),
       landing_time_id  NUMBER NOT NULL REFERENCES d_date (id),
       launch_method_id NUMBER NOT NULL REFERENCES d_launch_method (id),
       plane_id      NUMBER NOT NULL REFERENCES d_plane (id),
-      club_id          NUMBER NOT NULL REFERENCES d_club (id),
+      club_id   NUMBER NOT NULL REFERENCES d_club (id),
       group_id   NUMBER NOT NULL, -- references b_member_flight(group_id),
       distance NUMBER NOT NULL CHECK (distance >= 0),
       duration         NUMBER NOT NULL CHECK (duration         >= 0),
