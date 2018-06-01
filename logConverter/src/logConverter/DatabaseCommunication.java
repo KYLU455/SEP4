@@ -57,36 +57,21 @@ public class DatabaseCommunication {
 		conn.commit();
 		}
 	
-	public void insertWeather(Weather weather, String fileName, int day, int month, int year) throws SQLException {
-      Statement statement = conn.createStatement();
+	public void insertWeather(Weather weather, String fileName, int month, int year) throws SQLException {
+	   Statement statement = conn.createStatement();
       statement.executeQuery("insert into weather "
-                  + "(ID, PRESSURE, DEW_POINT_TEMPERATURE, SURFACE_TEMPERATURE, CLOUD_COVER, VISIBILITY, ISSUING_AIRPORT, WIND_SPEED, WIND_DIRECTION, DATE_TIME)"
-                  + " values (idWeatherSequence.nextval"
-                  + "," + weather.getPressure()
-                  + "," + weather.getDewPointTemperature()
-                  + ",'" + weather.getSurfaceTemperature() + "'"
-                  + ",'" + weather.getCloudCover() + "'"
-                  + "," + weather.getVisibility() + "'"
-                  + "," + weather.getAirport() + "'" 
-                  + "," + weather.getWindSpeed() + "'"  
-                  + "," + weather.getWindDirection() 
-                  + ",'" + fileName + "'"
-                  + ")");
-      
-      System.out.println("insert into weather "
-                  + "(ID, PRESSURE, DEW_POINT_TEMPERATURE, SURFACE_TEMPERATURE, CLOUD_COVER, VISIBILITY, DATE_TIME, ISSUING_AIRPORT, WIND_SPEED, WIND_DIRECTION)"
-                  + " values (idWeatherSequence.nextval"
-                  + "," + weather.getPressure()
-                  + "," + weather.getDewPointTemperature()
-                  + ",'" + weather.getSurfaceTemperature() + "'"
-                  + ",'" + weather.getCloudCover() + "'"
-                  + "," + weather.getVisibility() + "'"
-                  + ", timestamp '" + (year + 2000) + "-" + month + "-" + day + " " + weather.getHH() + ":" + weather.getMM() + "UTC'"
-                  + "," + weather.getAirport() + "'" 
-                  + "," + weather.getWindSpeed() + "'"  
-                  + "," + weather.getWindDirection() 
-                  + ",'" + fileName + "'"
-                  + ")");
+            + "(ID, PRESSURE, DEW_POINT_TEMPERATURE, SURFACE_TEMPERATURE, CLOUD_COVER, VISIBILITY, ISSUING_AIRPORT, WIND_DIRECTION, WIND_SPEED, DATE_TIME)"
+            + " values (idWeatherSequence.nextval"
+            + "," + weather.getPressure()
+            + "," + weather.getDewPointTemperature()
+            + "," + weather.getSurfaceTemperature() 
+            + ",'" + weather.getCloudCover() + "'"
+            + ",'" + weather.getVisibility() + "'"
+            + ",'" + weather.getAirport() + "'" 
+            + "," + weather.getWindDirection()
+            + "," + weather.getWindSpeed()
+            + ", timestamp '" + (year) + "-" + month + "-" + weather.getDD() + " " + weather.getHH() + ":" + weather.getMM() + ":" + 00 + " " + "UTC'"
+            + ")");
       statement.close();
       conn.commit();
       }

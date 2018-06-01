@@ -39,7 +39,7 @@ public class WeatherConverter {
          Weather weather = null;
          
          while((line = bufferedReader.readLine()) != null) {
-            if(line.charAt(0) == 'M' || line.length() < 56){
+            if((line.charAt(0) == 'M' && line.length() < 56)){
                weather = new Weather(
                      line.substring(6, 10),
                      Integer.parseInt(line.substring(11, 13)),
@@ -54,7 +54,7 @@ public class WeatherConverter {
                      Double.parseDouble(line.substring(51, 55)));
             }
                
-            else if(line.charAt(0) == 'M' || line.length() > 56){
+            else if(line.charAt(0) == 'M' && line.length() > 56){
                weather = new Weather(
                      line.substring(6, 10),
                      Integer.parseInt(line.substring(11, 13)),
@@ -67,31 +67,29 @@ public class WeatherConverter {
                      Double.parseDouble(line.substring(47, 49)),
                      Double.parseDouble(line.substring(50, 52)),
                      Double.parseDouble(line.substring(55, 58)));
-               
-               }else if (file.getName().equals("11.05.txt")) {
-                  day = 11;
-                  month = 05;
-                  year = 2018;
-               }else if (file.getName().equals("12.05.txt")) {
-                  day = 12;
-                  month = 05;
-                  year = 2018;
-               }else if(file.getName().equals("21.04.txt")) {
-                  day = 21;
-                  month = 04;
-                  year = 2018;
-               
-               
-            }
             }try {
-               db.insertWeather(weather, file.getName().substring(0, file.getName().length()- 4), day, month, year);
+               if(weather != null) 
+                
+               db.insertWeather(weather, file.getName().substring(0, file.getName().length()- 4), month, year);
             } catch (SQLException e) {
                System.out.println(line);
                e.printStackTrace();
-            }
        
+               
+               } if (file.getName().equals("11.05.txt")) {
+                  month = 05;
+                  year = 2018;
+               }else if (file.getName().equals("12.05.txt")) {
+                  month = 05;
+                  year = 2018;
+               }else if(file.getName().equals("21.04.txt")) {
+                  month = 04;
+                  year = 2018;
             
-            
+               
+               
+               }
+           }   
          
          }
          
