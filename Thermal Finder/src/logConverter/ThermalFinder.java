@@ -11,12 +11,15 @@ public class ThermalFinder {
 	
 	private ArrayList<Flight> flights;
 	
-	public ThermalFinder(ArrayList<Flight> flights) {
+	public ThermalFinder(ArrayList<Flight> flights) throws SQLException {
 		this.flights = flights;
-		findThermal(this.flights.get(0));
-//		for (Flight flight : flights) {
-//			findThermal(flight);
-//		}
+//		findThermal(this.flights.get(0));
+		for(int a = 0; a < flights.size(); a++) {
+			ArrayList<Thermal> thermals = findThermal(flights.get(a));
+			for (Thermal thermal : thermals) {
+				DatabaseCommunication.getInstance().insertThermal(thermal, flights.get(a).getName());
+			}
+		}
 	}
 
 	public ArrayList<Thermal> findThermal(Flight flight) {
@@ -30,10 +33,10 @@ public class ThermalFinder {
 			}
 			else {
 				if (increment.size() > 10 && increment.get(increment.size() - 1).getAltitude() - increment.get(0).getAltitude() >= 100) {
-					System.out.println("found one " + flight.getName());
-					for (Log log : increment) {
-						System.out.println(log.getAltitude());
-					}
+//					System.out.println("found one " + flight.getName());
+//					for (Log log : increment) {
+//						System.out.println(log.getAltitude());
+//					}
 					thermals.add(new Thermal(increment.get(0).getDate(), (ArrayList<Log>) increment.clone()));
 				}
 				increment = new ArrayList<>();

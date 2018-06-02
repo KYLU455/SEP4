@@ -16,6 +16,7 @@ import java.util.TimeZone;
 
 import Model.Flight;
 import Model.Log;
+import Model.Thermal;
 import oracle.net.aso.r;
 
 
@@ -62,5 +63,19 @@ public class DatabaseCommunication {
 		}
 		statement.close();
 		return flights;
+	}
+	
+	public void insertThermal(Thermal thermal, String flightId) throws SQLException {
+		PreparedStatement statement = conn.prepareStatement("insert into thermal (id, date_found, maxLatitude, maxLongitude, minLatitude, minLongitude, flight_id) "
+				+ "values (idThermalSequence.nextval,?,?,?,?,?,?)");
+		statement.setDate(1, thermal.getDate());
+		statement.setDouble(2, thermal.getMaxLatitude());
+		statement.setDouble(3, thermal.getMaxLongitude());
+		statement.setDouble(4, thermal.getMinLatitude());
+		statement.setDouble(5, thermal.getMinLongitude());
+		statement.setString(6, flightId);
+		statement.executeQuery();
+		statement.close();
+		conn.commit();
 	}
 }

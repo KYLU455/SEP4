@@ -35,3 +35,20 @@ issuing_airport VARCHAR(20) NOT NULL);
 create SEQUENCE idWeatherSequence START WITH 1
 INCREMENT BY 1
 NOMAXVALUE;
+
+drop table thermal;
+drop sequence idThermalSequence;
+
+create SEQUENCE idThermalSequence START WITH 1
+INCREMENT BY 1
+NOMAXVALUE;
+
+CREATE table thermal(
+  id int not null constraint thermal_id primary key,
+  flight_id varchar2 (15) not null,
+  date_found date not null,
+  maxLatitude number not null,
+	minLatitude number not null,
+  maxLongitude number not null,
+  minLongitude number not null
+);

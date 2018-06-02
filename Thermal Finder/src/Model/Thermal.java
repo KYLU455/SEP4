@@ -25,12 +25,7 @@ public class Thermal {
 				minLongitude = log.getLongitude();
 			}
 		}
-		System.out.println(maxLatitude + " " + minLatitude + " " + maxLongitude + " " + minLongitude);
-		startColumnIndex = gridConvert(minLatitude, false);
-		endColumnIndex = gridConvert(maxLatitude, true);
-		startRowIndex = gridConvert(minLongitude, false);
-		endRowIndex = gridConvert(maxLongitude, true);
-		System.out.println(startColumnIndex + " " + endColumnIndex + " " + startRowIndex + " " + endRowIndex);
+//		System.out.println(maxLatitude + " " + minLatitude + " " + maxLongitude + " " + minLongitude);
 	}
 
 	private Date date;
@@ -38,19 +33,6 @@ public class Thermal {
 	private double maxLongitude;
 	private double minLatitude;
 	private double minLongitude;
-	private long startColumnIndex;
-	private long endColumnIndex;
-	private long startRowIndex;
-	private long endRowIndex;
-
-	private long gridConvert(double number, boolean isMax) {
-		double res = number  * 60;
-		long r = (long) res;
-		if (isMax && res > r) {
-			res++;
-		}
-		return (long) res;
-	}
 
 	public Date getDate() {
 		return date;
@@ -71,5 +53,4 @@ public class Thermal {
 	public double getMinLongitude() {
 		return minLongitude;
 	}
-
 }

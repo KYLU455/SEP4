@@ -14,6 +14,7 @@ public class Log {
 		this.latitude = changeToDecimals(latitude);
 		this.longitude = changeToDecimals(longitude);
 		this.altitude = altitude;
+		this.date = date;
 	}
 	
 	private double changeToDecimals(String t) {
