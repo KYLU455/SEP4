@@ -45,7 +45,8 @@ CREATE SEQUENCE sq_flight START WITH 1 INCREMENT BY 1 NOMAXVALUE;
 --We realized that the flight needed to have a dimension
 --so that it can be connected to more facts about the flight
 CREATE TABLE d_flight(
-id NUMBER NOT NULL CONSTRAINT dFlightPK PRIMARY KEY
+id NUMBER NOT NULL CONSTRAINT dFlightPK PRIMARY KEY,
+log_name VARCHAR(20)
 )pctfree 0;
 
 --d_grid
