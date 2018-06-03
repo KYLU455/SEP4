@@ -21,16 +21,21 @@ create SEQUENCE idFlightSequence START WITH 1
 INCREMENT BY 1
 NOMAXVALUE;
 
-CREATE TABLE weather(
-id number NOT NULL CONSTRAINT weather_id PRIMARY KEY,
-pressure varchar(20) NOT NULL,
-dew_point_temperature number NOT NULL,
-surface_temperature number NOT NULL,
-cloud_cover VARCHAR(20) NOT NULL,
-visibility VARCHAR(20) NOT NULL,
-wind_direction_speed VARCHAR(20) NOT NULL,
-date_time date,
-issuing_airport VARCHAR(20) NOT NULL);
+create table WEATHER
+(
+  ID                    NUMBER       not null
+    constraint WEATHER_ID
+    primary key,
+  PRESSURE              VARCHAR2(20) not null,
+  DEW_POINT_TEMPERATURE NUMBER       not null,
+  SURFACE_TEMPERATURE   NUMBER       not null,
+  CLOUD_COVER           VARCHAR2(20) not null,
+  VISIBILITY            VARCHAR2(20) not null,
+  ISSUING_AIRPORT       VARCHAR2(20) not null,
+  WIND_DIRECTION        VARCHAR2(20),
+  WIND_SPEED            VARCHAR2(20),
+  DATE_TIME             TIMESTAMP(6) WITH TIME ZONE
+);
 
 create SEQUENCE idWeatherSequence START WITH 1
 INCREMENT BY 1
