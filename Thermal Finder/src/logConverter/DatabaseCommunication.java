@@ -76,6 +76,6 @@ public class DatabaseCommunication {
 		statement.setString(6, flightId);
 		statement.executeQuery();
 		statement.close();
-		conn.commit();
+		//conn.commit();
 	}
 }
