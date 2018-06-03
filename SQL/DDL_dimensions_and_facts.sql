@@ -49,7 +49,10 @@ id NUMBER NOT NULL CONSTRAINT dFlightPK PRIMARY KEY,
 log_name VARCHAR(20)
 )pctfree 0;
 
+
 --d_grid
+CREATE SEQUENCE sq_grid START WITH 1 INCREMENT BY 1 NOMAXVALUE;
+
 create table d_grid(
   id NUMBER NOT NULL CONSTRAINT dGridPK PRIMARY KEY ,
   start_latitude NUMBER NOT NULL,
