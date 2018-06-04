@@ -32,7 +32,8 @@ create table f_weather(
 date_id NUMBER NOT NULL REFERENCES d_date(id), 
 dew_point_temperature number NOT NULL,
 surface_temperature number NOT NULL,
-cloud_cover VARCHAR(20) NOT NULL,
+cloud_cover number NOT NULL,
+cloud_cover_name VARCHAR(60) NOT NULL,
 wind_direction number NOT NULL,
 win_speed_in_knots number NOT NULL,
 issuing_airport VARCHAR(20) NOT NULL
