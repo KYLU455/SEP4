@@ -174,6 +174,8 @@ create table f_thermal(
     (
       id NUMBER NOT NULL,
       audit_date DATE NOT NULL,
+      thermal_rejected NUMBER,
+      thermal_fixed NUMBER,
       plane_rejected NUMBER,
       plane_fixed NUMBER,
       flight_rejected NUMBER,
