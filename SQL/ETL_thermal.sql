@@ -2,7 +2,7 @@
 
 
 -- OPTION 1 : first time run -----do not run this from second time=================================
-
+drop table thermalToday;
 create table thermalToday 
 as select * from thermal;
 
@@ -203,8 +203,7 @@ BEGIN
 	--(CHOOSE THE FIRST RESULT IF THERE IS MORE THAN ONE flight WITH THE SAME log_name)
  BEGIN
     SELECT id into flight_id from d_flight 
-      where log_name = row.log_name
-      FETCH First row only;
+      where log_name = row.log_name;
       EXCEPTION
         WHEN NO_DATA_FOUND THEN
 		--IF NO d_flight WAS FOUND MATCH it with a FAKE flight
@@ -228,10 +227,10 @@ BEGIN
  
       /*Searching for the grid_id with the respective latitudes and longitudes values*/
      begin
-      select id into grid_id from d_grid 
+      select id into grid_id from d_grid
         where start_latitude < row.maxlatitude and end_latitude > row.minlatitude
         and start_longitude < row.maxLongitude and end_longitude > row.minlongitude
-         FETCH First row only;
+        and rownum < 2;
 		--if theres no grid found match it with a fake one
           EXCEPTION
         When NO_DATA_FOUND THEN 
