@@ -18,9 +18,9 @@ CREATE TABLE weatherToday AS SELECT * FROM weather;
 DROP TABLE newWeather;
 
 CREATE TABLE newWeather AS
-  Select * from weatherToday WHERE 'HAPPINES IN LIFE' = 'ICT STUDENT';
---  MINUS
---  SELECT * from yesterdayWeather;
+  Select * from weatherToday --WHERE 'HAPPINES IN LIFE' = 'ICT STUDENT';
+ MINUS
+  SELECT * from yesterdayWeather;
 
 ALTER TABLE NEWWEATHER ADD (CLOUDCOVERNAME VARCHAR2(15));
 -------------------validation part
@@ -30,38 +30,52 @@ ALTER TABLE NEWWEATHER ADD (CLOUDCOVERNAME VARCHAR2(15));
 --We declare variables to save the values for each row in a loop, and some flags to keep the audit updated
 
 declare
-  temp_date DATE;
   currentDate DATE := SYSDATE;
-  pressure NUMBER;
   surface_temperature NUMBER;
-  cloudcovername VARCHAR2(50);
+  cloud_cover_temp varchar(6);
+  temp_cloudcovername VARCHAR2(50);
   CLOUDCOVER NUMBER;
 
 -- check the weather information
 
 BEGIN
-    FOR c IN (Select * from weatherToday minus SELECT * from yesterdayWeather)
+    FOR c IN (select* from newweather)
     LOOP
 
-    /*if the weather date is in the future, delete weather, set flag for deleted row*/
+    /*if the weather date is in the future, delete weather*/
     if (c.DATE_TIME > currentDate) THEN
-      delete from newWeather;
+      delete from newWeather
+      where id =c.id;
       end if;
     -- if the temperature is lower than the lowest possible physical value
     if (c.surface_temperature < -273.5) THEN
-	   delete from newWeather;
+	   delete from newWeather  where id =c.id;
        end if;
      --Because all records are done after 2014, we can validate the flight accordingly
             IF (EXTRACT(YEAR FROM c.DATE_TIME) < 2014)
             THEN
-            delete from newWeather;
+            delete from newWeather  where id =c.id;
             END IF;
-        cloudCover := SUBSTR(c.cloud_Cover, 4, 6);
-        cloudCoverName := SUBSTR(c.cloud_Cover, 0, 3);
+            
+   -- separating the cloud cover information 
+   cloud_cover_temp := c.cloud_Cover;
+        cloudCover := SUBSTR(cloud_cover_temp, 4, 6);
+        temp_cloudCoverName := SUBSTR(cloud_cover_temp, 0, 3);
 
 
-        insert into newWeather (ID, PRESSURE, DEW_POINT_TEMPERATURE, SURFACE_TEMPERATURE, CLOUD_COVER, VISIBILITY, ISSUING_AIRPORT, WIND_DIRECTION, WIND_SPEED, DATE_TIME, CLOUDCOVERNAME)
-          values (c.ID, c.PRESSURE, c.DEW_POINT_TEMPERATURE, c.SURFACE_TEMPERATURE, cloudCover, c.VISIBILITY, c.ISSUING_AIRPORT, c.WIND_DIRECTION, c.WIND_SPEED,c.DATE_TIME, cloudCoverName);
+        update newWeather set
+        id = c.id,
+        pressure = c.pressure,
+        DEW_POINT_TEMPERATURE = c.DEW_POINT_TEMPERATURE,
+        SURFACE_TEMPERATURE=c.SURFACE_TEMPERATURE,
+        CLOUD_COVER=cloudCover, 
+        VISIBILITY= c.VISIBILITY,
+        ISSUING_AIRPORT=c.ISSUING_AIRPORT,
+        WIND_DIRECTION=c.WIND_DIRECTIOn ,
+        WIND_SPEED= c.WIND_SPEED,
+        DATE_TIME=c.DATE_TIME,
+        CLOUDCOVERNAME= temp_cloudCoverName
+        where id = c.id;
 
 end loop;
 commit;
@@ -119,7 +133,7 @@ BEGIN
         );
       EXCEPTION
         WHEN NO_DATA_FOUND THEN
-          select id into date_id from d_date where id=111;
+          select id into date_id from d_date where id=-1;
    end;
    commit;
 
