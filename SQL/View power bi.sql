@@ -11,29 +11,17 @@ select F_THERMAL.VALID_TO, D_FLIGHT.LOG_NAME,
  --left outer join F_WEATHER on D_DATE.ID = F_WEATHER.DATE_ID;
 left outer join (
   select DEW_POINT_TEMPERATURE, SURFACE_TEMPERATURE, CLOUD_COVER, cloud_cover_name, WIND_DIRECTION, WIN_SPEED_IN_KNOTS, ISSUING_AIRPORT,
-  D_DATE.YEAR, D_DATE.MONTH, D_DATE.day from
-  f_weather left outer join d_date on D_DATE.ID = F_WEATHER.DATE_ID where d_date.id !=-1) weather on 
+  YEAR, MONTH, day from
+   (select * from (
+  select * from f_weather join d_date on f_weather.date_id = d_date.id where D_DATE.year =2018 AND d_date.day=12 AND D_DATE.month=05
+  AND ROWNUM =1
+  UNION
+  select * from f_weather join d_date on f_weather.date_id = d_date.id where D_DATE.year =2018 AND d_date.day=11 AND D_DATE.month=05
+  AND ROWNUM=1))) weather on 
   D_DATE.year = weather.year AND d_date.day=weather.day AND D_DATE.month=weather.month;
   
   
   --Check the right amount with the following count the results should be the same.
-  select count(log_name) from sep_power_bi;
-  select count(flight_id) from f_thermal;
-  
-  /* testing stuff here
- select * from(
-  select DEW_POINT_TEMPERATURE, SURFACE_TEMPERATURE, CLOUD_COVER, cloud_cover_name, WIND_DIRECTION, WIN_SPEED_IN_KNOTS, ISSUING_AIRPORT,
-  D_DATE.YEAR, D_DATE.MONTH, D_DATE.day from
-  f_weather left outer join d_date on D_DATE.ID = F_WEATHER.DATE_ID where d_date.id !=-1 and
-   D_DATE.year =2018 AND d_date.day=11 AND D_DATE.month=05) WHERE rownum = 1;
-  
-  
-   select * from(
-  select DEW_POINT_TEMPERATURE, SURFACE_TEMPERATURE, CLOUD_COVER, cloud_cover_name, WIND_DIRECTION, WIN_SPEED_IN_KNOTS, ISSUING_AIRPORT,
-  D_DATE.YEAR, D_DATE.MONTH, D_DATE.day from
-  f_weather left outer join d_date on D_DATE.ID = F_WEATHER.DATE_ID where d_date.id !=-1 and
-   D_DATE.year =2018 AND d_date.day=12 AND D_DATE.month=05) WHERE rownum = 1;
-  
-  */
-  
+  --select count(log_name) from sep_power_bi;
+ -- select count(flight_id) from f_thermal;
   
