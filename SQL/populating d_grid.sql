@@ -17,6 +17,3 @@ declare
   end loop;
   commit;
 end;
-
-delete D_GRID;
-delete F_THERMAL;

@@ -24,4 +24,4 @@ left outer join (
   --Check the right amount with the following count the results should be the same.
   --select count(log_name) from sep_power_bi;
  -- select count(flight_id) from f_thermal;
-  
+
