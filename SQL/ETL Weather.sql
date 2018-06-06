@@ -4,9 +4,7 @@
 drop table yesterdayWeather;
 
 --create table yesterday weather to store a copy of our weather data
-
 create table yesterdayWeather as select * from weatherToday where 1=0;
-
 insert into yesterdayWeather(select * from weatherToday);
 
 /*Create table with the current weather information*/
@@ -18,7 +16,7 @@ CREATE TABLE weatherToday AS SELECT * FROM weather;
 DROP TABLE newWeather;
 
 CREATE TABLE newWeather AS
-  Select * from weatherToday --WHERE 'HAPPINES IN LIFE' = 'ICT STUDENT';
+  Select * from weatherToday 
  MINUS
   SELECT * from yesterdayWeather;
 
