@@ -1,5 +1,5 @@
 declare
-  start_latitude number := 58; -- 240 * 540 = 129 600
+  start_latitude number := 58;
   start_longitude number := 15;
   end_latitide number := 54;
   end_longitude number := 6;
@@ -17,3 +17,7 @@ declare
   end loop;
   commit;
 end;
+
+
+
+
