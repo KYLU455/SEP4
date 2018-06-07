@@ -17,7 +17,3 @@ declare
   end loop;
   commit;
 end;
-
-
-
-
